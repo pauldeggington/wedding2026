@@ -5,10 +5,23 @@ const unsignedUploadPreset = "wedding2026";
 var myWidget = cloudinary.createUploadWidget({
     cloudName: cloudName,
     uploadPreset: unsignedUploadPreset,
+
+    // --- FUNCTIONAL RESTRICTIONS ---
     sources: ['local', 'camera'],
-    resourceType: 'image', // Tells Cloudinary to ONLY expect images
-    clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp'], // Limits what can be picked
+    resourceType: 'image',
+    clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp'],
     multiple: true,
+    maxFiles: 20, // Prevents accidental spamming
+
+    // --- SEAMLESS UX SETTINGS ---
+    defaultSource: 'local',               // On mobile, opens the "Photo Library/Camera" prompt immediately
+    showAdvancedOptions: false,           // Hides technical clutter
+    cropping: false,                      // Removes extra steps for guests
+    showSkipCropButton: true,
+    singleUploadAutoClose: false,         // Lets guests upload more without re-opening the box
+    showCompletedButton: true,            // A clear "I'm Done" button to finish
+
+    // --- STYLING (Merged with your Gold/Cream Palette) ---
     styles: {
         palette: {
             window: "#faf8f3",
@@ -30,22 +43,32 @@ var myWidget = cloudinary.createUploadWidget({
             "'Dancing Script', cursive": "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
         }
     },
+
+    // --- PERSONALIZED TEXT ---
     text: {
         en: {
+            queue: {
+                "title": "Wedding Gallery",
+                "title_uploading_with_counter": "Sharing {{count}} photos..."
+            },
             menu: {
                 "files": "From Phone",
                 "camera": "Take Live Photo"
             },
             local: {
-                "browse": "Choose Wedding Photos",
-                "dd_title_single": "Drag your photo here"
+                "browse": "Pick Wedding Photos",
+                "dd_title_single": "Share a Moment with Us"
             }
         }
     }
 }, (error, result) => {
     if (!error && result && result.event === "success") {
-        // Photo uploaded successfully (but not displayed on page)
-        console.log('Photo uploaded successfully!');
+        // This makes the "Live" part work: it tells the gallery to reload 
+        // behind the popup so the photo is there when they close it.
+        if (typeof loadGallery === "function") {
+            loadGallery();
+        }
+        console.log('Photo added to the wedding gallery!');
     }
 });
 
