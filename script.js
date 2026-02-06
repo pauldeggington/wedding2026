@@ -8,7 +8,31 @@ var myWidget = cloudinary.createUploadWidget({
     sources: ['local', 'camera'],
     resourceType: 'image', // Tells Cloudinary to ONLY expect images
     clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp'], // Limits what can be picked
-    multiple: true
+    multiple: true,
+    styles: {
+        palette: {
+            window: "#faf8f3",
+            windowBorder: "#d4af37",
+            tabIcon: "#d4af37",
+            menuIcons: "#d4af37",
+            textDark: "#9d7e3a",
+            textLight: "#666666",
+            link: "#d4af37",
+            action: "#d4af37",
+            inactiveTabIcon: "#c9a961",
+            error: "#f44235",
+            inProgress: "#d4af37",
+            complete: "#20b832",
+            sourceBg: "#f9f4eb"
+        },
+        fonts: {
+            default: null,
+            "'Montserrat', sans-serif": {
+                url: "https://fonts.googleapis.com/css?family=Montserrat",
+                active: true
+            }
+        }
+    }
 }, (error, result) => {
     if (!error && result && result.event === "success") {
         // Photo uploaded successfully (but not displayed on page)

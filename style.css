@@ -58,6 +58,7 @@ body {
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(100vh) rotate(0deg);
@@ -118,6 +119,7 @@ body {
 }
 
 @keyframes shimmer {
+
     0%,
     100% {
         background-position: 0% 50%;
@@ -327,6 +329,7 @@ body {
 }
 
 @keyframes heartbeat {
+
     0%,
     100% {
         transform: scale(1);
@@ -353,6 +356,25 @@ body {
         font-size: 1.3rem;
     }
 
+    .countdown {
+        gap: 10px;
+    }
+
+    .countdown-item {
+        padding: 15px 10px;
+        min-width: 70px;
+        border-radius: 12px;
+    }
+
+    .countdown-number {
+        font-size: 2rem;
+    }
+
+    .countdown-label {
+        font-size: 0.7rem;
+        margin-top: 5px;
+    }
+
     .gallery-title {
         font-size: 2rem;
     }
@@ -365,5 +387,28 @@ body {
     #gallery img {
         height: 150px;
         border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    .hero {
+        padding: 40px 15px;
+    }
+
+    .countdown {
+        gap: 8px;
+    }
+
+    .countdown-item {
+        padding: 12px 5px;
+        min-width: 65px;
+    }
+
+    .countdown-number {
+        font-size: 1.6rem;
     }
 }
