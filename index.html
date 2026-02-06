@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Gallery ✨</title>
+    <title>Paul & Fakiha's Wedding</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -157,7 +157,51 @@
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 69, 105, 0.1));
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            border-radius: 15px;
+            padding: 20px 25px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.3);
+            border-color: rgba(255, 107, 157, 0.5);
+        }
+
+        .countdown-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #c44569;
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            display: block;
+            font-weight: 500;
         }
 
         .divider {
@@ -357,12 +401,41 @@
             <p class="subtitle">Celebrating Love & Forever</p>
             <div class="divider"></div>
             <p class="date">March 29th, 2026</p>
+
+            <!-- Countdown Timer -->
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
             <p class="message">
                 Join us in capturing the magic of our special day!
                 Share your favorite moments and help us create lasting memories together.
             </p>
             <button id="upload_widget" class="btn">Share Your Photos</button>
         </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery-section">
+            <h2 class="gallery-title">Our Memories ✨</h2>
+            <div id="gallery">
+                <div class="loading">Loading beautiful moments...</div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <div class="footer">
             <p>Made with <span class="heart-icon">♥</span> for our special day</p>
@@ -385,7 +458,64 @@
                 loadGallery();
             }
         });
-        document.getElementById("upload_widget").onclick = () => myWidget.open();    
+        document.getElementById("upload_widget").onclick = () => myWidget.open();
+
+        // Fetch and Show Photos
+        function loadGallery() {
+            fetch(`https://res.cloudinary.com/${cloudName}/image/list/wedding_live.json`)
+                .then(response => response.json())
+                .then(data => {
+                    const galleryDiv = document.getElementById('gallery');
+                    galleryDiv.innerHTML = '';
+
+                    if (data.resources && data.resources.length > 0) {
+                        data.resources.forEach((img, index) => {
+                            const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/w_600,c_fill,q_auto/${img.public_id}.${img.format}`;
+                            const el = document.createElement('img');
+                            el.src = imgUrl;
+                            el.alt = 'Wedding memory';
+                            el.style.animationDelay = `${index * 0.1}s`;
+                            galleryDiv.appendChild(el);
+                        });
+                    } else {
+                        galleryDiv.innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
+                    }
+                })
+                .catch(err => {
+                    console.log("Gallery is empty or error loading.");
+                    document.getElementById('gallery').innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
+                });
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadGallery, 30000);
+        loadGallery();
+
+        // Countdown Timer
+        function updateCountdown() {
+            const weddingDate = new Date('March 29, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            } else {
+                // Wedding day has arrived!
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 2rem; color: #c44569; font-family: \'Playfair Display\', serif;">🎉 It\'s Our Wedding Day! 🎉</p>';
+            }
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 
