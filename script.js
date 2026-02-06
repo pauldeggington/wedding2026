@@ -6,6 +6,8 @@ var myWidget = cloudinary.createUploadWidget({
     cloudName: cloudName,
     uploadPreset: unsignedUploadPreset,
     sources: ['local', 'camera'],
+    resourceType: 'image', // Tells Cloudinary to ONLY expect images
+    clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp'], // Limits what can be picked
     multiple: true
 }, (error, result) => {
     if (!error && result && result.event === "success") {
