@@ -361,17 +361,8 @@
                 Join us in capturing the magic of our special day!
                 Share your favorite moments and help us create lasting memories together.
             </p>
-            <button id="upload_widget" class="btn">📸 Share Your Photos</button>
+            <button id="upload_widget" class="btn">Share Your Photos</button>
         </div>
-
-        <!-- Gallery Section -->
-        <div class="gallery-section">
-            <h2 class="gallery-title">Our Memories ✨</h2>
-            <div id="gallery">
-                <div class="loading">Loading beautiful moments...</div>
-            </div>
-        </div>
-
         <!-- Footer -->
         <div class="footer">
             <p>Made with <span class="heart-icon">♥</span> for our special day</p>
@@ -383,7 +374,6 @@
     <script>
         const cloudName = "dqqbcesbi";
         const unsignedUploadPreset = "wedding2026";
-
         // Initialize Upload Widget
         var myWidget = cloudinary.createUploadWidget({
             cloudName: cloudName,
@@ -395,39 +385,7 @@
                 loadGallery();
             }
         });
-
-        document.getElementById("upload_widget").onclick = () => myWidget.open();
-        /*
-        // 4. Fetch and Show "Live" Photos
-        function loadGallery() {
-            fetch(`https://res.cloudinary.com/${cloudName}/image/list/wedding_live.json`)
-                .then(response => response.json())
-                .then(data => {
-                    const galleryDiv = document.getElementById('gallery');
-                    galleryDiv.innerHTML = '';
-
-                    if (data.resources && data.resources.length > 0) {
-                        data.resources.forEach((img, index) => {
-                            const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/w_600,c_fill,q_auto/${img.public_id}.${img.format}`;
-                            const el = document.createElement('img');
-                            el.src = imgUrl;
-                            el.alt = 'Wedding memory';
-                            el.style.animationDelay = `${index * 0.1}s`;
-                            galleryDiv.appendChild(el);
-                        });
-                    } else {
-                        galleryDiv.innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
-                    }
-                })
-                .catch(err => {
-                    console.log("Gallery is empty or error loading.");
-                    document.getElementById('gallery').innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
-                });
-        }
-
-        // Auto-refresh every 30 seconds
-        setInterval(loadGallery, 30000);
-        loadGallery();
+        document.getElementById("upload_widget").onclick = () => myWidget.open();    
     </script>
 </body>
 
