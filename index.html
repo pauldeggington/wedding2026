@@ -4,93 +4,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Gallery</title>
+    <title>Our Wedding Gallery ✨</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
     <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            background: #fdf6f6;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe8f5 25%, #fff5f9 50%, #ffe0f0 75%, #ffd9ec 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Decorative floating hearts */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .heart:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            left: 25%;
+            animation-delay: 2s;
+        }
+
+        .heart:nth-child(3) {
+            left: 45%;
+            animation-delay: 4s;
+        }
+
+        .heart:nth-child(4) {
+            left: 65%;
+            animation-delay: 1s;
+        }
+
+        .heart:nth-child(5) {
+            left: 85%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20vh) rotate(180deg);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.15);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #c44569;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .hero .date {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff6b9d, transparent);
+            margin: 30px auto;
+        }
+
+        .hero .message {
+            font-size: 1.15rem;
+            color: #555;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        /* Upload Button */
         .btn {
-            background: #ff4d6d;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
             color: white;
-            padding: 15px 30px;
+            padding: 18px 45px;
             border: none;
             border-radius: 50px;
             font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-top: 60px;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #c44569;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
 
         #gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         #gallery img {
             width: 100%;
-            height: 150px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 5px solid white;
+        }
+
+        #gallery img:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.3);
+            border-color: #ff6b9d;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.2rem;
+            color: #c44569;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .footer .heart-icon {
+            color: #ff6b9d;
+            font-size: 1.2rem;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            10%,
+            30% {
+                transform: scale(1.1);
+            }
+
+            20%,
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .gallery-title {
+                font-size: 2rem;
+            }
+
+            #gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            #gallery img {
+                height: 150px;
+                border-radius: 15px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Floating hearts background -->
+    <div class="hearts-bg">
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💗</div>
+        <div class="heart">💝</div>
+        <div class="heart">💞</div>
+    </div>
 
-    <h1>Welcome to Our Wedding! 🥂</h1>
-    <p>Snap a photo and share it with us live.</p>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Our Wedding</h1>
+            <p class="subtitle">Celebrating Love & Forever</p>
+            <div class="divider"></div>
+            <p class="date">2026</p>
+            <p class="message">
+                Join us in capturing the magic of our special day!
+                Share your favorite moments and help us create lasting memories together.
+            </p>
+            <button id="upload_widget" class="btn">📸 Share Your Photos</button>
+        </div>
 
-    <button id="upload_widget" class="btn">📸 Upload Photo</button>
+        <!-- Gallery Section -->
+        <div class="gallery-section">
+            <h2 class="gallery-title">Our Memories ✨</h2>
+            <div id="gallery">
+                <div class="loading">Loading beautiful moments...</div>
+            </div>
+        </div>
 
-    <div id="gallery"></div>
+        <!-- Footer -->
+        <div class="footer">
+            <p>Made with <span class="heart-icon">♥</span> for our special day</p>
+        </div>
+    </div>
 
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
     <script>
-        const cloudName = "dqqbcesbi"; // Find this in your Cloudinary Dashboard
-        const unsignedUploadPreset = "wedding2026"; // The preset you created
+        const cloudName = "dqqbcesbi";
+        const unsignedUploadPreset = "wedding2026";
 
-        // 3. Initialize Upload Widget
+        // Initialize Upload Widget
         var myWidget = cloudinary.createUploadWidget({
             cloudName: cloudName,
             uploadPreset: unsignedUploadPreset,
-            sources: ['local', 'camera'], // Allow file pick or live camera
+            sources: ['local', 'camera'],
             multiple: true
         }, (error, result) => {
             if (!error && result && result.event === "success") {
-                loadGallery(); // Reload gallery immediately when a photo is uploaded
+                loadGallery();
             }
         });
 
         document.getElementById("upload_widget").onclick = () => myWidget.open();
-
+        /*
         // 4. Fetch and Show "Live" Photos
         function loadGallery() {
-            // This fetches every image with the tag 'wedding_live'
             fetch(`https://res.cloudinary.com/${cloudName}/image/list/wedding_live.json`)
                 .then(response => response.json())
                 .then(data => {
                     const galleryDiv = document.getElementById('gallery');
-                    galleryDiv.innerHTML = ''; // Clear current photos
-                    data.resources.forEach(img => {
-                        const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/w_400,c_fill/${img.public_id}.${img.format}`;
-                        const el = document.createElement('img');
-                        el.src = imgUrl;
-                        galleryDiv.appendChild(el);
-                    });
+                    galleryDiv.innerHTML = '';
+
+                    if (data.resources && data.resources.length > 0) {
+                        data.resources.forEach((img, index) => {
+                            const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/w_600,c_fill,q_auto/${img.public_id}.${img.format}`;
+                            const el = document.createElement('img');
+                            el.src = imgUrl;
+                            el.alt = 'Wedding memory';
+                            el.style.animationDelay = `${index * 0.1}s`;
+                            galleryDiv.appendChild(el);
+                        });
+                    } else {
+                        galleryDiv.innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
+                    }
                 })
-                .catch(err => console.log("Gallery is empty or error loading."));
+                .catch(err => {
+                    console.log("Gallery is empty or error loading.");
+                    document.getElementById('gallery').innerHTML = '<div class="loading">No photos yet. Be the first to share! 💕</div>';
+                });
         }
 
-        // Auto-refresh every 30 seconds to keep it "Live"
+        // Auto-refresh every 30 seconds
         setInterval(loadGallery, 30000);
-        loadGallery(); // Initial load
+        loadGallery();
     </script>
 </body>
 
