@@ -27,9 +27,18 @@ var myWidget = cloudinary.createUploadWidget({
         },
         fonts: {
             default: null,
-            "'Montserrat', sans-serif": {
-                url: "https://fonts.googleapis.com/css?family=Montserrat",
-                active: true
+            "'Dancing Script', cursive": "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+        }
+    },
+    text: {
+        en: {
+            menu: {
+                "files": "From Phone",
+                "camera": "Take Live Photo"
+            },
+            local: {
+                "browse": "Choose Wedding Photos",
+                "dd_title_single": "Drag your photo here"
             }
         }
     }
