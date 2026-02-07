@@ -24,7 +24,7 @@ var myWidget = cloudinary.createUploadWidget({
     // --- STYLING (Merged with your Gold/Cream Palette) ---
     styles: {
         palette: {
-            window: "#faf8f3",
+            window: "#f5f1e8",
             windowBorder: "#d4af37",
             tabIcon: "#d4af37",
             menuIcons: "#d4af37",
@@ -36,7 +36,7 @@ var myWidget = cloudinary.createUploadWidget({
             error: "#f44235",
             inProgress: "#d4af37",
             complete: "#20b832",
-            sourceBg: "#f9f4eb"
+            sourceBg: "#ede6d9"
         },
         fonts: {
             default: null,
